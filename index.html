@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TESTIMONI JB KINGZ STORE</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Font Inter & Montserrat -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#fff5f5',
+                            100: '#fed7d7',
+                            600: '#dc2626',
+                            700: '#b91c1c',
+                            800: '#991b1b',
+                            900: '#7f1d1d',
+                        }
+                    },
+                    fontFamily: {
+                        heading: ['Montserrat', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        h1, h2, h3, .font-heading {
+            font-family: 'Montserrat', sans-serif;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="text-slate-800 flex flex-col min-h-screen">
+
+    <!-- HEADER / NAVBAR -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Title -->
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-brand-700 rounded-xl flex items-center justify-center text-white shadow-md shadow-brand-700/20">
+                    <i class="fa-solid fa-crown text-lg"></i>
+                </div>
+                <div>
+                    <span class="text-xl sm:text-2xl font-extrabold tracking-tight text-slate-900 font-heading">
+                        JB KINGZ <span class="text-brand-700">STORE</span>
+                    </span>
+                    <span class="block text-xs text-slate-500 font-medium tracking-wider uppercase">Official Testimonials</span>
+                </div>
+            </div>
+
+            <!-- Header Action Button -->
+            <div class="flex items-center space-x-3">
+                <!-- Status Admin Indicator / Login Trigger -->
+                <div id="adminBadge" class="hidden flex items-center space-x-2 bg-emerald-50 text-emerald-700 px-3 py-1 rounded-lg border border-emerald-200 text-xs font-semibold">
+                    <i class="fa-solid fa-user-shield"></i>
+                    <span>Admin Active</span>
+                    <button onclick="adminLogout()" class="ml-1 text-slate-400 hover:text-red-600" title="Logout Admin">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                    </button>
+                </div>
+
+                <button onclick="openPaymentModal()" class="inline-flex items-center space-x-2 bg-brand-700 hover:bg-brand-800 text-white font-semibold px-5 py-2.5 rounded-xl shadow-md shadow-brand-700/20 transition duration-200 active:scale-95 text-sm">
+                    <i class="fa-solid fa-wallet text-sm"></i>
+                    <span>Payment</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO / BANNER SECTION -->
+    <section class="bg-gradient-to-b from-brand-50 to-slate-50 border-b border-slate-200/60 py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto text-center">
+            <span class="inline-block px-3 py-1 bg-brand-100 text-brand-800 font-semibold text-xs rounded-full mb-3 uppercase tracking-wider">
+                <i class="fa-solid fa-shield-check mr-1"></i> Terpercaya & Amanah
+            </span>
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4 font-heading">
+                Bukti Transaksi & Ulasan Pembeli
+            </h1>
+            <p class="text-slate-600 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+                Kepuasan pelanggan adalah prioritas utama di <strong class="text-slate-800">JB KINGZ STORE</strong>. Ribuan transaksi sukses telah kami proses.
+            </p>
+
+            <div class="mt-8 flex flex-wrap justify-center gap-4">
+                <button onclick="openPaymentModal()" class="bg-brand-700 hover:bg-brand-800 text-white font-semibold px-6 py-3 rounded-xl transition duration-200 shadow-md shadow-brand-700/20 text-sm">
+                    <i class="fa-solid fa-credit-card mr-2"></i>Info Pembayaran GoPay
+                </button>
+                <button id="adminAddBtnHero" onclick="openAdminModal()" class="bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 font-medium px-6 py-3 rounded-xl transition duration-200 shadow-sm text-sm">
+                    <i class="fa-solid fa-lock mr-2 text-brand-700"></i>Kelola Testimoni (Admin)
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAIN CONTENT -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-grow w-full">
+        <!-- Search and Filter Bar -->
+        <div class="mb-6 bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="relative w-full sm:w-80">
+                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 text-sm"></i>
+                <input type="text" id="searchInput" oninput="filterTestimonials()" placeholder="Cari nama atau ulasan..." 
+                    class="w-full pl-10 pr-4 py-2 bg-slate-50 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-brand-700 focus:outline-none">
+            </div>
+
+            <div class="flex items-center space-x-2 w-full sm:w-auto justify-end">
+                <span id="testimonialCountBadge" class="bg-brand-100 text-brand-800 font-semibold px-3 py-1.5 rounded-xl text-xs">
+                    0 Testimoni
+                </span>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <!-- LEFT COLUMN: ADD TESTIMONIAL FORM (ADMIN ONLY) -->
+            <div class="lg:col-span-5 hidden" id="form-section">
+                <div class="bg-white p-6 sm:p-8 rounded-2xl border border-brand-200 shadow-sm sticky top-28 ring-1 ring-brand-100">
+                    <div class="flex items-center justify-between mb-6 pb-4 border-b border-slate-100">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 rounded-lg bg-brand-700 text-white flex items-center justify-center font-bold">
+                                <i class="fa-solid fa-plus"></i>
+                            </div>
+                            <div>
+                                <h2 class="text-lg font-bold text-slate-900 font-heading">Tambah Testimoni</h2>
+                                <p class="text-xs text-brand-700 font-semibold">Mode Admin Aktif</p>
+                            </div>
+                        </div>
+                        <button onclick="adminLogout()" class="text-xs text-slate-400 hover:text-red-600 underline">Logout</button>
+                    </div>
+
+                    <form id="testimonialForm" onsubmit="handleFormSubmit(event)" class="space-y-4">
+                        <!-- Nama Pelanggan -->
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5" for="customerName">
+                                Nama Pelanggan <span class="text-brand-700">*</span>
+                            </label>
+                            <input type="text" id="customerName" required placeholder="Contoh: Budi Santoso" 
+                                class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-700 focus:border-brand-700 text-sm outline-none transition">
+                        </div>
+
+                        <!-- Rating Bintang -->
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">
+                                Rating Pelayanan <span class="text-brand-700">*</span>
+                            </label>
+                            <div class="flex items-center space-x-2 bg-slate-50 p-2.5 rounded-xl border border-slate-200">
+                                <div class="flex text-amber-400 text-xl space-x-1" id="starRatingContainer">
+                                    <i class="fa-solid fa-star cursor-pointer star-btn" onclick="setRating(1)"></i>
+                                    <i class="fa-solid fa-star cursor-pointer star-btn" onclick="setRating(2)"></i>
+                                    <i class="fa-solid fa-star cursor-pointer star-btn" onclick="setRating(3)"></i>
+                                    <i class="fa-solid fa-star cursor-pointer star-btn" onclick="setRating(4)"></i>
+                                    <i class="fa-solid fa-star cursor-pointer star-btn" onclick="setRating(5)"></i>
+                                </div>
+                                <span id="ratingValueText" class="text-xs font-semibold text-slate-600 ml-2">5.0 / 5.0</span>
+                            </div>
+                        </div>
+
+                        <!-- Pesan Testimoni -->
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5" for="testimonialMessage">
+                                Isi Ulasan Pelanggan <span class="text-brand-700">*</span>
+                            </label>
+                            <textarea id="testimonialMessage" rows="3" required placeholder="Tuliskan ulasan transaksi dari pembeli..." 
+                                class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-700 focus:border-brand-700 text-sm outline-none transition resize-none"></textarea>
+                        </div>
+
+                        <!-- Upload Foto Testimoni -->
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">
+                                Foto Bukti Transaksi <span class="text-slate-400 font-normal">(Opsional)</span>
+                            </label>
+                            <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-slate-300 border-dashed rounded-xl hover:border-brand-700 transition cursor-pointer bg-slate-50 hover:bg-white" onclick="document.getElementById('imageInput').click()">
+                                <div class="space-y-1 text-center" id="uploadPlaceholder">
+                                    <i class="fa-solid fa-cloud-arrow-up text-2xl text-slate-400 mb-2"></i>
+                                    <div class="flex text-xs text-slate-600 justify-center">
+                                        <span class="font-semibold text-brand-700 hover:text-brand-800">Pilih file foto</span>
+                                        <span class="pl-1">atau tarik ke sini</span>
+                                    </div>
+                                    <p class="text-[11px] text-slate-400">PNG, JPG, WEBP hingga 5MB</p>
+                                </div>
+                                
+                                <!-- Preview Container -->
+                                <div id="previewContainer" class="hidden w-full relative">
+                                    <img id="imagePreview" src="" alt="Preview Foto Testimoni" class="max-h-40 rounded-lg mx-auto object-cover border border-slate-200 shadow-sm">
+                                    <button type="button" onclick="removeImage(event)" class="absolute -top-2 -right-2 bg-slate-800 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs shadow hover:bg-red-600 transition">
+                                        <i class="fa-solid fa-xmark"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <input id="imageInput" type="file" accept="image/*" class="hidden" onchange="handleImageSelect(event)">
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="w-full bg-brand-700 hover:bg-brand-800 text-white font-semibold py-3 rounded-xl shadow-md shadow-brand-700/20 transition duration-200 active:scale-95 text-sm flex items-center justify-center space-x-2 mt-2">
+                            <i class="fa-solid fa-paper-plane"></i>
+                            <span>Terbitkan Testimoni</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN: TESTIMONIAL GALLERY -->
+            <div id="galleryContainer" class="lg:col-span-12 transition-all duration-300">
+                <!-- Testimonials Grid -->
+                <div id="testimonialGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <!-- Cards dynamically rendered here -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-slate-200 py-6 mt-12">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+            <p>
+                &copy; <span id="currentYear"></span> <strong>JB KINGZ STORE</strong>. All rights reserved.
+            </p>
+            <div class="flex items-center space-x-3">
+                <button onclick="openAdminModal()" class="text-slate-400 hover:text-brand-700 transition flex items-center space-x-1" title="Login Admin">
+                    <i class="fa-solid fa-lock text-xs"></i>
+                    <span>Admin Portal</span>
+                </button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ADMIN LOGIN MODAL -->
+    <div id="adminModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl max-w-sm w-full overflow-hidden shadow-2xl border border-slate-100">
+            <div class="bg-slate-900 px-6 py-4 text-white flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-user-shield text-brand-700"></i>
+                    <h3 class="font-bold text-sm font-heading">Login Admin JB KINGZ</h3>
+                </div>
+                <button onclick="closeAdminModal()" class="text-slate-400 hover:text-white">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <form onsubmit="handleAdminLogin(event)" class="p-6 space-y-4">
+                <p class="text-xs text-slate-500">Masukkan Password Admin untuk mengupload dan mengelola testimoni.</p>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Password / PIN</label>
+                    <input type="password" id="adminPasswordInput" required placeholder="Masukkan password..."
+                        class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-700 focus:border-brand-700 text-sm outline-none">
+                    <p class="text-[11px] text-slate-400 mt-1">Default Password: <code class="bg-slate-100 px-1 py-0.5 rounded text-slate-700">admin123</code></p>
+                </div>
+                <button type="submit" class="w-full bg-brand-700 hover:bg-brand-800 text-white font-semibold py-2.5 rounded-xl text-sm transition">
+                    Masuk Mode Admin
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- PAYMENT MODAL -->
+    <div id="paymentModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden transition-opacity duration-300">
+        <div class="bg-white rounded-2xl max-w-md w-full overflow-hidden shadow-2xl border border-slate-100 transform transition-transform duration-300 scale-95" id="modalContent">
+            <!-- Modal Header -->
+            <div class="bg-brand-700 px-6 py-5 text-white flex justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <div class="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center text-white">
+                        <i class="fa-solid fa-wallet text-lg"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-base font-heading">Pembayaran GoPay</h3>
+                        <p class="text-xs text-red-100">JB KINGZ STORE Official Payment</p>
+                    </div>
+                </div>
+                <button onclick="closePaymentModal()" class="text-white/80 hover:text-white bg-white/10 hover:bg-white/20 rounded-lg w-8 h-8 flex items-center justify-center transition">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="p-6 space-y-6">
+                <!-- GoPay Card -->
+                <div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-xl p-5 text-white shadow-md relative overflow-hidden">
+                    <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-brand-700/20 rounded-full blur-xl"></div>
+                    
+                    <div class="flex justify-between items-start mb-6">
+                        <div>
+                            <span class="text-[10px] uppercase font-bold tracking-widest text-slate-400 block mb-1">METODE PEMBAYARAN</span>
+                            <span class="bg-blue-600 text-white font-extrabold px-2.5 py-0.5 rounded text-xs tracking-wider">GOPAY</span>
+                        </div>
+                        <i class="fa-solid fa-qrcode text-2xl text-slate-300"></i>
+                    </div>
+
+                    <div class="space-y-1 mb-4">
+                        <span class="text-xs text-slate-400 block">Nomor Akun GoPay</span>
+                        <div class="flex items-center justify-between bg-slate-800/80 p-2.5 rounded-lg border border-slate-700">
+                            <span class="font-mono text-lg font-bold tracking-wider text-amber-300" id="gopayNumber">08388184817</span>
+                            <button onclick="copyGopayNumber()" class="bg-brand-700 hover:bg-brand-800 text-white px-3 py-1.5 rounded-md text-xs font-semibold transition active:scale-95 flex items-center space-x-1.5">
+                                <i class="fa-regular fa-copy"></i>
+                                <span id="copyBtnText">Salin</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <span class="text-xs text-slate-400 block">Atas Nama (A.N)</span>
+                        <span class="text-sm font-semibold text-white tracking-wide uppercase">FAQIH</span>
+                    </div>
+                </div>
+
+                <!-- Petunjuk Transfer -->
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
+                    <h4 class="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center">
+                        <i class="fa-solid fa-circle-info text-brand-700 mr-2"></i> Cara Melakukan Pembayaran:
+                    </h4>
+                    <ol class="text-xs text-slate-600 list-decimal pl-4 space-y-1">
+                        <li>Buka aplikasi <strong>Gojek</strong> Anda.</li>
+                        <li>Pilih menu <strong>Bayar / Transfer</strong>.</li>
+                        <li>Masukkan nomor HP: <strong class="text-slate-800">08388184817</strong>.</li>
+                        <li>Pastikan nama penerima muncul: <strong class="text-brand-700">FAQIH</strong>.</li>
+                        <li>Selesaikan pembayaran dan simpan bukti transfer.</li>
+                    </ol>
+                </div>
+
+                <!-- Toast Notice inside Modal -->
+                <div id="copyToast" class="hidden bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs p-3 rounded-lg flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-circle-check text-emerald-600"></i>
+                    <span>Nomor GoPay berhasil disalin ke clipboard!</span>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="bg-slate-50 px-6 py-4 border-t border-slate-100 flex justify-end">
+                <button onclick="closePaymentModal()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold px-4 py-2 rounded-xl text-xs transition">
+                    Tutup
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- NOTIFICATION TOAST -->
+    <div id="globalToast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300">
+        <div class="bg-slate-900 text-white px-5 py-3 rounded-xl shadow-xl border border-slate-700 flex items-center space-x-3 text-sm">
+            <i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
+            <span id="globalToastMessage">Testimoni berhasil ditambahkan!</span>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Set Current Year
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Initial Sample Testimonials
+        const defaultTestimonials = [
+            {
+                id: 1,
+                name: "Dimas Anggara",
+                rating: 5,
+                message: "Proses cepat banget gak sampe 5 menit langsung beres. Admin nya ramah dan amanah banget, recommended JB KINGZ STORE!",
+                image: "https://images.unsplash.com/photo-1555861496-0666c8981751?auto=format&fit=crop&w=600&q=80",
+                date: "10 Feb 2026"
+            },
+            {
+                id: 2,
+                name: "Rizky Gamer",
+                rating: 5,
+                message: "Awalnya sempet ragu, ternyata beneran amanah 100%. Pembayaran via GoPay ke a.n Faqih terverifikasi lancar jaya. Mantap king!",
+                image: "https://images.unsplash.com/photo-1616588589676-62b3bd4ff6d2?auto=format&fit=crop&w=600&q=80",
+                date: "08 Feb 2026"
+            },
+            {
+                id: 3,
+                name: "Fajar Pratama",
+                rating: 5,
+                message: "Transaksi yang ke-3 kali di JB KINGZ STORE dan tidak pernah mengecewakan. Sukses terus bang Faqih!",
+                image: null,
+                date: "05 Feb 2026"
+            }
+        ];
+
+        // Load testimonials from LocalStorage or use default
+        let testimonials = JSON.parse(localStorage.getItem('jbkingz_testimonials')) || defaultTestimonials;
+        let isAdminLoggedIn = sessionStorage.getItem('jbkingz_admin_logged_in') === 'true';
+
+        let currentRating = 5;
+        let selectedImageBase64 = null;
+
+        // Render Page on Load
+        document.addEventListener('DOMContentLoaded', () => {
+            updateAdminUI();
+            renderTestimonials();
+        });
+
+        // Toggle Admin UI State
+        function updateAdminUI() {
+            const formSection = document.getElementById('form-section');
+            const galleryContainer = document.getElementById('galleryContainer');
+            const adminBadge = document.getElementById('adminBadge');
+            const adminAddBtnHero = document.getElementById('adminAddBtnHero');
+
+            if (isAdminLoggedIn) {
+                formSection.classList.remove('hidden');
+                galleryContainer.classList.remove('lg:col-span-12');
+                galleryContainer.classList.add('lg:col-span-7');
+                adminBadge.classList.remove('hidden');
+                if (adminAddBtnHero) adminAddBtnHero.classList.add('hidden');
+            } else {
+                formSection.classList.add('hidden');
+                galleryContainer.classList.remove('lg:col-span-7');
+                galleryContainer.classList.add('lg:col-span-12');
+                adminBadge.classList.add('hidden');
+                if (adminAddBtnHero) adminAddBtnHero.classList.remove('hidden');
+            }
+        }
+
+        // Admin Auth Handlers
+        function openAdminModal() {
+            if (isAdminLoggedIn) {
+                document.getElementById('form-section').scrollIntoView({ behavior: 'smooth' });
+                return;
+            }
+            document.getElementById('adminModal').classList.remove('hidden');
+        }
+
+        function closeAdminModal() {
+            document.getElementById('adminModal').classList.add('hidden');
+            document.getElementById('adminPasswordInput').value = '';
+        }
+
+        function handleAdminLogin(event) {
+            event.preventDefault();
+            const password = document.getElementById('adminPasswordInput').value;
+            // Admin password: admin123
+            if (password === 'admin123') {
+                isAdminLoggedIn = true;
+                sessionStorage.setItem('jbkingz_admin_logged_in', 'true');
+                updateAdminUI();
+                renderTestimonials();
+                closeAdminModal();
+                showToast("Berhasil login sebagai Admin!");
+            } else {
+                showToast("Password salah! (Default: admin123)");
+            }
+        }
+
+        function adminLogout() {
+            isAdminLoggedIn = false;
+            sessionStorage.removeItem('jbkingz_admin_logged_in');
+            updateAdminUI();
+            renderTestimonials();
+            showToast("Anda telah keluar dari mode Admin.");
+        }
+
+        // Save & Render Testimonials
+        function saveToLocalStorage() {
+            localStorage.setItem('jbkingz_testimonials', JSON.stringify(testimonials));
+        }
+
+        function renderTestimonials(filterQuery = '') {
+            const grid = document.getElementById('testimonialGrid');
+            const countBadge = document.getElementById('testimonialCountBadge');
+
+            const filtered = testimonials.filter(item => 
+                item.name.toLowerCase().includes(filterQuery.toLowerCase()) || 
+                item.message.toLowerCase().includes(filterQuery.toLowerCase())
+            );
+            
+            countBadge.textContent = `${filtered.length} Testimoni`;
+            grid.innerHTML = '';
+
+            // Dynamic grid layout class based on admin mode
+            if (isAdminLoggedIn) {
+                grid.className = "grid grid-cols-1 sm:grid-cols-2 gap-4";
+            } else {
+                grid.className = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4";
+            }
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full bg-white p-8 rounded-2xl border border-slate-200 text-center">
+                        <i class="fa-regular fa-comments text-4xl text-slate-300 mb-3"></i>
+                        <p class="text-sm font-semibold text-slate-600">Tidak ada testimoni ditemukan</p>
+                    </div>
+                `;
+                return;
+            }
+
+            filtered.forEach(item => {
+                const starsHtml = Array.from({ length: 5 }).map((_, i) => `
+                    <i class="fa-solid fa-star ${i < item.rating ? 'text-amber-400' : 'text-slate-200'}"></i>
+                `).join('');
+
+                const imageHtml = item.image ? `
+                    <div class="mt-3 overflow-hidden rounded-xl border border-slate-100 bg-slate-50">
+                        <img src="${item.image}" alt="Bukti Testimoni" class="w-full h-48 object-cover hover:scale-105 transition duration-300">
+                    </div>
+                ` : '';
+
+                const adminDeleteBtn = isAdminLoggedIn ? `
+                    <button onclick="deleteTestimonial(${item.id})" class="text-slate-400 hover:text-red-600 text-xs ml-2 p-1" title="Hapus testimoni">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                ` : '';
+
+                const cardHtml = `
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md transition duration-200 flex flex-col justify-between">
+                        <div>
+                            <!-- Header Card -->
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-9 h-9 rounded-full bg-brand-700 text-white font-bold flex items-center justify-center text-sm shadow-sm">
+                                        ${item.name.charAt(0).toUpperCase()}
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold text-slate-900 text-sm leading-tight">${escapeHtml(item.name)}</h3>
+                                        <span class="text-[11px] text-slate-400">${item.date}</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-center">
+                                    <span class="bg-slate-100 text-slate-700 text-[11px] font-semibold px-2 py-0.5 rounded-full flex items-center">
+                                        <i class="fa-solid fa-shield-check text-emerald-600 mr-1"></i> Verified
+                                    </span>
+                                    ${adminDeleteBtn}
+                                </div>
+                            </div>
+
+                            <!-- Rating -->
+                            <div class="flex text-xs space-x-1 mb-2">
+                                ${starsHtml}
+                            </div>
+
+                            <!-- Message -->
+                            <p class="text-slate-600 text-xs sm:text-sm leading-relaxed mb-2">
+                                "${escapeHtml(item.message)}"
+                            </p>
+
+                            <!-- Image Bukti -->
+                            ${imageHtml}
+                        </div>
+                    </div>
+                `;
+                grid.innerHTML += cardHtml;
+            });
+        }
+
+        function filterTestimonials() {
+            const query = document.getElementById('searchInput').value;
+            renderTestimonials(query);
+        }
+
+        function deleteTestimonial(id) {
+            if (confirm("Apakah Anda yakin ingin menghapus testimoni ini?")) {
+                testimonials = testimonials.filter(t => t.id !== id);
+                saveToLocalStorage();
+                renderTestimonials();
+                showToast("Testimoni berhasil dihapus.");
+            }
+        }
+
+        // Star Rating Selection
+        function setRating(rating) {
+            currentRating = rating;
+            const stars = document.querySelectorAll('.star-btn');
+            stars.forEach((star, idx) => {
+                if (idx < rating) {
+                    star.classList.remove('text-slate-300');
+                    star.classList.add('text-amber-400');
+                } else {
+                    star.classList.remove('text-amber-400');
+                    star.classList.add('text-slate-300');
+                }
+            });
+            document.getElementById('ratingValueText').textContent = `${rating}.0 / 5.0`;
+        }
+
+        // Image Handling
+        function handleImageSelect(event) {
+            const file = event.target.files[0];
+            if (file) {
+                if (file.size > 5 * 1024 * 1024) {
+                    showToast("Ukuran file terlalu besar (Maksimal 5MB)");
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    selectedImageBase64 = e.target.result;
+                    document.getElementById('imagePreview').src = selectedImageBase64;
+                    document.getElementById('uploadPlaceholder').classList.add('hidden');
+                    document.getElementById('previewContainer').classList.remove('hidden');
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function removeImage(event) {
+            if(event) event.stopPropagation();
+            selectedImageBase64 = null;
+            document.getElementById('imageInput').value = '';
+            document.getElementById('imagePreview').src = '';
+            document.getElementById('previewContainer').classList.add('hidden');
+            document.getElementById('uploadPlaceholder').classList.remove('hidden');
+        }
+
+        // Form Submit Handler (Admin only)
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            
+            if (!isAdminLoggedIn) {
+                showToast("Hanya Admin yang dapat menerbitkan testimoni!");
+                return;
+            }
+
+            const nameInput = document.getElementById('customerName').value.trim();
+            const messageInput = document.getElementById('testimonialMessage').value.trim();
+
+            if (!nameInput || !messageInput) {
+                showToast("Harap isi semua kolom yang wajib!");
+                return;
+            }
+
+            const dateOptions = { day: '2-digit', month: 'short', year: 'numeric' };
+            const todayStr = new Date().toLocaleDateString('id-ID', dateOptions);
+
+            const newTestimonial = {
+                id: Date.now(),
+                name: nameInput,
+                rating: currentRating,
+                message: messageInput,
+                image: selectedImageBase64,
+                date: todayStr
+            };
+
+            testimonials.unshift(newTestimonial);
+            saveToLocalStorage();
+            renderTestimonials();
+
+            // Reset Form
+            document.getElementById('testimonialForm').reset();
+            removeImage();
+            setRating(5);
+
+            showToast("Testimoni baru berhasil diterbitkan!");
+        }
+
+        // Modal Payments Controls
+        function openPaymentModal() {
+            const modal = document.getElementById('paymentModal');
+            const content = document.getElementById('modalContent');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                content.classList.remove('scale-95');
+                content.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closePaymentModal() {
+            const modal = document.getElementById('paymentModal');
+            const content = document.getElementById('modalContent');
+            content.classList.remove('scale-100');
+            content.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 200);
+        }
+
+        function copyGopayNumber() {
+            const number = document.getElementById('gopayNumber').innerText;
+            const btnText = document.getElementById('copyBtnText');
+            const toast = document.getElementById('copyToast');
+
+            const dummy = document.createElement("textarea");
+            document.body.appendChild(dummy);
+            dummy.value = number;
+            dummy.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummy);
+
+            btnText.textContent = "Tersalin!";
+            toast.classList.remove('hidden');
+
+            setTimeout(() => {
+                btnText.textContent = "Salin";
+                toast.classList.add('hidden');
+            }, 3000);
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('globalToast');
+            const toastMsg = document.getElementById('globalToastMessage');
+            toastMsg.textContent = msg;
+            
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3500);
+        }
+
+        function escapeHtml(str) {
+            return str.replace(/[&<>'"]/g, 
+                tag => ({
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    "'": '&#39;',
+                    '"': '&quot;'
+                }[tag] || tag)
+            );
+        }
+    </script>
+</body>
+</html>
